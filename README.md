@@ -1,3 +1,5 @@
+# check this file in raw format for better visual effect (tree map)
+
 # IoT_project_Prof.Patrono
 The project of employing MQTT to recieve the data from sensor in the edge + subscribing the data and save in SQlite + dashboard (HTML) and a pop up warning for high temprature
 
