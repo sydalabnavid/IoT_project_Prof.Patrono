@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>IoT Project with WebSocket-MQTT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatable" content="ie=edge">
+  <!-- <meta http-equiv="refresh" content="3"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+  h1 {text-align: center;   margin-top:5px; margin-bottom:10px;}
+</style>
+
+<style>
+  .btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Darker background on mouse-over */
+  .btn:hover {
+    background-color: RoyalBlue;
+  }
+</style>
+
+<body>
+
+  <h1>Use WebSocket client to connect to MQTT server</h1>
+
+  <canvas id="myChart" style="width:100%;max-width:700px; border:1px dashed orangered;
+   top:0;bottom:0;right:0;left:0; "></canvas>
+  <script>
+    var xValues = {{labels | tojson}}
+    var yValues = {{values | tojson}}
+
+    new Chart("myChart", {
+      type: "line",
+      data: {
+        labels: xValues,
+        datasets: [{
+          fill: false,
+          lineTension: 0,
+          backgroundColor: "rgba(0,0,255,1.0)",
+          borderColor: "rgba(0,0,255,0.1)",
+          data: yValues
+        }]
+      },
+      options: {
+        legend: {display: false},
+        scales: {
+          yAxes: [{ticks: {min: 20, max:45}}],
+        }
+      }
+    });
+    </script>
+
+  <script>
+      if({{ realtimeT | tojson }} > 40)
+		  {
+			alert("'High Temprature Warning'");
+		  };
+    </script>
+  </script>
+
+
+  <p><strong>Real-time data:  </strong> <span style="border: 1px solid black">{{key1}}</span></p>
+
+
+  <button id="demo" onclick="myFunction()">Sqlite database contents [the format is ('time','value')]</button>
+  <script>
+    function myFunction() {
+        document.getElementById("demo").innerHTML = "{{key2}}";
+    }
+  </script>
+
+  <p id="demo"></p>
+  <script>
+    const obj = JSON.parse("{{key1}}");
+    document.getElementById("demo").innerHTML = obj.Time + ", " + obj.Temperature;
+  </script>
+
+  <p style="margin-top:3.5em;">STOP real-time illustration</p>
+  <button class="btn" onclick="clearTimeout(myTimeout)"><i class="fa fa-close"></i></button>
+
+  <!-- refresh each 3 second -->
+  <script type="text/javascript">
+    const  myTimeout = setTimeout(function () { location.reload(true); }, 3000);
+  </script>
+
+</body>
+</html>
