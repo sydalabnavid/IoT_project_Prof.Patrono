@@ -51,3 +51,18 @@ Drive:.
 
 line 69 should be modified"
 con = sq3.connect('[the path]\\Gateway_database\\DataBaseIoTproject.db')
+
+
+
+=================================================
+Run the script:
+0 clone the reposuitory
+1st run the publisher
+2nd run the subscriber
+3rd open the browser and check out the local host at gate 5000 : 127.0.0.1:5000
+4h wait to see the high temprature pop up notification 
+
+Note
+- the temprature value is created in random way
+- the range of temprature is set between 22 and 44
+- The temprature threshold for warning is 40 
