@@ -55,7 +55,9 @@ con = sq3.connect('[the path]\\Gateway_database\\DataBaseIoTproject.db')
 
 
 =================================================
-Run the script:
+
+How to Run the script:
+
 0 clone the reposuitory
 1st run the publisher
 2nd run the subscriber
